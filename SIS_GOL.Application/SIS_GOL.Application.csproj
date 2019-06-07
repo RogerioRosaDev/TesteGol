@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="4.0.4" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\SIS_GOL.Domain\SIS_GOL.Domain.csproj" />
+    <ProjectReference Include="..\SIS_GOL.Infra.DataAccess\SIS_GOL.Infra.DataAccess.csproj" />
+  </ItemGroup>
+
+</Project>
