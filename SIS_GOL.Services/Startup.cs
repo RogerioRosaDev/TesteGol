@@ -47,7 +47,8 @@ namespace SIS_GOL.Services
                 app.UseHsts();
             }
 
-           // app.UseHttpsRedirection();
+            app.UseCors(r => r.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
+            app.UseHttpsRedirection();
             app.UseMvc();
         }
 
