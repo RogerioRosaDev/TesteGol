@@ -10,14 +10,14 @@ namespace SIS_GOL.Infra.DataAccess
 {
     public class RepositoryGeneric<TEntity> : IReading<TEntity>, IRecording<TEntity>, IDisposable where TEntity : class
     {
-        private readonly DbContextOptionsBuilder<GOL_Connection> _conn;
+        private readonly DbContextOptionsBuilder<GOL_Context> _conn;
         public RepositoryGeneric()
         {
-            _conn = new DbContextOptionsBuilder<GOL_Connection>();
+            _conn = new DbContextOptionsBuilder<GOL_Context>();
         }
         public async Task Create(TEntity entity)
         {
-            using (var con = new GOL_Connection(_conn.Options))
+            using (var con = new GOL_Context(_conn.Options))
             {
                 await con.Set<TEntity>().AddAsync(entity);
                 await con.SaveChangesAsync();
@@ -26,7 +26,7 @@ namespace SIS_GOL.Infra.DataAccess
 
         public async Task Delete(long id)
         {
-            using (var con = new GOL_Connection(_conn.Options))
+            using (var con = new GOL_Context(_conn.Options))
             {
                 var ent = await con.Set<TEntity>().FindAsync(id);
                 con.Set<TEntity>().Remove(ent);
@@ -35,7 +35,7 @@ namespace SIS_GOL.Infra.DataAccess
         }
         public async Task<IEnumerable<TEntity>> FindAll()
         {
-            using (var con = new GOL_Connection(_conn.Options))
+            using (var con = new GOL_Context(_conn.Options))
             {
               
                 return await con.Set<TEntity>().AsNoTracking().ToListAsync();
@@ -49,7 +49,7 @@ namespace SIS_GOL.Infra.DataAccess
 
         public async Task<TEntity> FindOne(long id)
         {
-            using (var con = new GOL_Connection(_conn.Options))
+            using (var con = new GOL_Context(_conn.Options))
             {
                 return await con.Set<TEntity>().FindAsync(id);
             }
@@ -57,7 +57,7 @@ namespace SIS_GOL.Infra.DataAccess
 
         public async Task<IEnumerable<TEntity>> FindwithParameters(Expression<Func<TEntity, bool>> filter)
         {
-            using (var con = new GOL_Connection(_conn.Options))
+            using (var con = new GOL_Context(_conn.Options))
             {
                 return await con.Set<TEntity>().AsNoTracking().ToListAsync();
             }
@@ -65,7 +65,7 @@ namespace SIS_GOL.Infra.DataAccess
 
         public async Task Update(TEntity entity)
         {
-            using (var con = new GOL_Connection(_conn.Options))
+            using (var con = new GOL_Context(_conn.Options))
             {
                 con.Entry<TEntity>(entity).State = EntityState.Modified;
                 await con.SaveChangesAsync();
@@ -82,5 +82,7 @@ namespace SIS_GOL.Infra.DataAccess
             if (!isDispose) return;
 
         }
+
+       
     }
 }

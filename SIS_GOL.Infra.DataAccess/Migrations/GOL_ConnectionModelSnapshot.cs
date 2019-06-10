@@ -8,7 +8,7 @@ using SIS_GOL.Infra.DataAccess;
 
 namespace SIS_GOL.DataAccess.Migrations
 {
-    [DbContext(typeof(GOL_Connection))]
+    [DbContext(typeof(GOL_Context))]
     partial class GOL_ConnectionModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)

@@ -1,0 +1,108 @@
+<form [formGroup]="formCadastro">
+  <input formControlName="idAviao" class="d-none" >
+  <div class="form-row">
+    <div class="form-group col-md-6">
+      <label for="inputEmail4">Código Avião</label>
+      <input type="text" 
+             class="form-control" 
+             [ngClass]="{'is-invalid': formCadastro.get('codigoAviao').errors && formCadastro.get('codigoAviao').touched}"
+             formControlName="codigoAviao" 
+             placeholder="codigo avião">
+
+      <div *ngIf="formCadastro.get('codigoAviao').hasError('required') && formCadastro.get('codigoAviao').touched" class="class invalid-feedback">
+        O campo código do avião é obrigatorio!
+      </div>
+      <div *ngIf="formCadastro.get('codigoAviao').hasError('minlength') && formCadastro.get('codigoAviao').touched" class="class invalid-feedback">
+          O campo código do avião deve ter no mínimo 1 caracteres!
+        </div>
+        <div *ngIf="formCadastro.get('codigoAviao').hasError('maxlength') && formCadastro.get('codigoAviao').touched" class="class invalid-feedback">
+            O campo código do avião deve ter no maximo 10 caracteres!
+          </div>
+    </div>
+    <div class="form-group col-md-6">
+      <label for="inputPassword4">Modelo Avião</label>
+      <input type="text" 
+             class="form-control" 
+             [ngClass]="{'is-invalid': formCadastro.get('modeloAviao').errors && formCadastro.get('modeloAviao').touched}"
+             formControlName="modeloAviao"   
+             placeholder="Modelo do Avião">
+      <div *ngIf="formCadastro.get('modeloAviao').hasError('required') && formCadastro.get('modeloAviao').touched " class="class invalid-feedback">
+          O campo modelo avião é obrigatorio!
+        </div>
+
+        <div *ngIf="formCadastro.get('modeloAviao').hasError('minlength') && formCadastro.get('modeloAviao').touched" class="class invalid-feedback">
+            O campo código do avião deve ter no mínimo 2 caracteres!
+          </div>
+          <div *ngIf="formCadastro.get('modeloAviao').hasError('maxlength') && formCadastro.get('modeloAviao').touched" class="class invalid-feedback">
+              O campo código do avião deve ter no maximo 100 caracteres!
+            </div>
+    </div>
+  </div>
+  <div class="form-row">
+      <div class="form-group col-md-6">
+          <label for="inputEmail4">Qtd. Passageiro</label>
+          <input type="number" 
+                 class="form-control"
+                 [ngClass]="{'is-invalid': formCadastro.get('qtdPassageiros').errors && formCadastro.get('qtdPassageiros').touched}"
+                 formControlName="qtdPassageiros" 
+                 placeholder="qtd passageiros">
+          <div class="class invalid-feedback">
+              O qtd passageiro é obrigatorio!
+            </div>
+            <div *ngIf="formCadastro.get('qtdPassageiros').hasError('max')" class="class invalid-feedback">
+                O qtd passageiro deve ser menor que 300 pessoas!
+              </div>
+        </div>
+        <div class="form-group col-md-6">
+          <label for="inputPassword4">Data Criação</label>
+          <input type="date" 
+                 class="form-control"  
+                 formControlName="dataCriacao" 
+                 [ngClass]="{'is-invalid': formCadastro.get('dataCriacao').errors && formCadastro.get('dataCriacao').touched}"
+                 placeholder="Data">
+          <div class="class invalid-feedback">
+              O campo data de criação é obrigatorio!
+            </div>
+        </div>
+  </div>
+  
+
+  <button type="submit" class="btn btn-primary" [disabled]="!formCadastro.valid" (click)='Salvar()' >
+ <i class="fa fa-save">&nbsp;
+    Salvar
+ </i>
+  </button>
+</form>
+
+<hr>
+
+<table class="table table-striped">
+    <thead class="thead-dark">
+      <tr>
+        <th>#</th>
+        <th>Codigo Air</th>
+        <th>Modelo Avião</th>
+        <th>Qtd Passageiros</th>
+        <th>Data Cadastro</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor='let item of lstAirplane'>
+        <td>{{item.idAviao}}</td>
+        <td>{{item.codigoAviao}}</td>
+        <td>{{item.modeloAviao}}</td>
+        <td>{{item.qtdPassageiros}}</td>
+        <td>{{item.dataCriacao | DataFornat}}</td>
+        <td>
+          <button class="btn btn-warning btn-sm" (click)="getalterAir(item.idAviao)" >
+            <i class="fa fa-edit"></i>
+          </button>
+          <button class="btn btn-danger btn-sm" (click)="deleteAir(item.idAviao)" >
+              <i class="fa fa-times-circle"></i>
+            </button>
+        </td>
+      </tr>
+    </tbody>
+    <tfoot></tfoot>
+    </table>

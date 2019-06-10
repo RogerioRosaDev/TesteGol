@@ -9,7 +9,7 @@ using SIS_GOL.Infra.DataAccess;
 
 namespace SIS_GOL.DataAccess.Migrations
 {
-    [DbContext(typeof(GOL_Connection))]
+    [DbContext(typeof(GOL_Context))]
     [Migration("20190606222402_Initial")]
     partial class Initial
     {
